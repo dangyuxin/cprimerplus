@@ -1,27 +1,39 @@
-#include <stdio.h>
-double jc(int n);
-double ji(int n);
+#include<stdio.h>
+double Jchen(int n);
+double LJchen(int n);
+
 int main(){
-    double eps,P,Pi=0;
-    scanf("%le", &eps);
-    for(int i=1;;i++){
-        P=jc(i-1)/ji(i);
-        Pi+=P;
-        if(P<eps)
-        break;
-    }
-    printf("PI = %.5lf",Pi*2);
+	int i;
+	double Ps,Pi=0,eps;
+	
+	scanf("%le", &eps);		//%le意思是用科学计数法输出的double数据。
+	
+	for(i=1;;i++){
+		Ps = Jchen(i-1) / LJchen(i);
+		Pi = Pi + Ps;
+		if(Ps < eps)
+			break;
+	}
+	printf("PI = %.5lf\n",Pi * 2);
+	
+	//printf("%lf %lf",Jchen(3),LJchen(3));
+	return 0;
 }
-double jc(int n){
-    double sum1=1.0;
-    for(int j=1;j<=n;j++)
-    sum1*=j;
-    return sum1;
-}
-double ji(int n){
-    double sum2=1.0;
-    for(int j=1;j<=n;j++){
-        sum2*=2*j-1;
-        return sum2;
-    }
+
+double Jchen(int n){	//求阶乘
+	int i;
+	double sum=1.0;
+	for(i = 1;i<=n;i++){
+		sum = sum * i;
+	}
+	return sum;
+} 
+
+double LJchen(int n){	//求分母
+	int i;
+	double sum = 1.0;
+	for(i=1;i<=n;i++){
+		sum = sum * (i*2 - 1);
+	}
+	return sum;
 }
