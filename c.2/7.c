@@ -1,7 +1,13 @@
-#include <Stdio.h>
+#include <stdio.h>
+void test(){
+    printf("Smile!");
+}
 int main(){
-    int a;
-    printf("输入身高:");
-    scanf("%d",&a);
-    printf("\n你的身高是%.2fcm",a*2.54);
+    test();test();test();
+    printf("\n");
+    test();test();
+    printf("\n");
+    test();
+
+
 }
