@@ -5,7 +5,7 @@ int main(){
     for(int i=0;;i++){
         friend=(friend-week)*2;
         week++;
-            if(friend>140)
+            if(friend>150)
             break;
     }
     printf("%d\n%d",week,friend);
