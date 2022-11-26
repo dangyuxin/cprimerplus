@@ -5,5 +5,5 @@ int main(){
     while(scanf("%c",&ch)!=EOF){
         count++;
     }
-    printf("%d",count);
+    printf("%d\n",count);
 }
