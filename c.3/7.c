@@ -1,4 +1,4 @@
-#include <Stdio.h>
+#include <stdio.h>
 int main(){
     int a;
     printf("输入身高:");
