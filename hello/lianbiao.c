@@ -18,9 +18,11 @@ void put(struct Book *library){
     }
 }
 void release(struct Book *library){
+    struct Book *a;
     while(library!=NULL){
+        a = library;
         library=library->next;
-        free(library);
+        free(a);
     }
 }
 void getinput(struct Book *book){
