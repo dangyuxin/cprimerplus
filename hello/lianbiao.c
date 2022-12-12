@@ -17,11 +17,11 @@ void put(struct Book *library){
         count++;
     }
 }
-void release(struct Book *library){
+void release(struct Book **library){
     struct Book *a;
     while(library!=NULL){
-        a = library;
-        library=library->next;
+        a = *library;
+        *library=(*library)->next;
         free(a);
     }
 }
@@ -70,7 +70,7 @@ int main(){
         }while(ch!='Y'&& ch!='N');
         if(ch=='Y')
         put(library);
-        release(library);
+        release(&library);
     
     return 0;
 }
