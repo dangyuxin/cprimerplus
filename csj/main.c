@@ -81,12 +81,14 @@ void opt1() // 主界面选项
     scanf("%d", &a);
     if (a == 1)
     {
+        system("clear");
         printf("进入\n");
         menu2();
         opt2();
     }
     else if (a == 2)
     {
+        system("clear");
         printf("退出成功\n");
         printf("欢迎下次光临\n");
         exit(0);
@@ -118,18 +120,23 @@ void opt2() // 账号选项
     scanf("%d", &a);
     if (a == 1)
     {
+        system("clear");
         enter();
     }
     else if (a == 2)
     {
+        system("clear");
         printf("开始创建\n");
         createuser();
         save1();
+        system("clear");
+        printf("创建成功");
         menu2();
         opt2();
     }
     else if (a == 3)
     {
+        system("clear");
         printf("修改密码\n\n");
         changeps();
         menu2();
@@ -137,6 +144,7 @@ void opt2() // 账号选项
     }
     else if (a == 4)
     {
+        system("clear");
         printf("开始充值\n");
         addm();
         save1();
@@ -152,11 +160,13 @@ void opt2() // 账号选项
     }
     else if (a == 6)
     {
+        system("clear");
         menu1();
         opt1();
     }
     else
     {
+        system("clear");
         printf("请输入正确的序号\n");
         menu2();
         opt2();
@@ -186,6 +196,7 @@ void opt3(user *crt)
     scanf("%d", &a);
     if (a == 7)
     {
+        system("clear");
         printf("\n\n");
         show(init);
         menu3();
@@ -193,15 +204,19 @@ void opt3(user *crt)
     }
     else if (a == 2)
     {
+        system("clear");
         init = add(init);
+        system("clear");
         printf("\n添加成功\n");
         menu3();
         opt3(crt);
     }
     else if (a == 1)
     {
+        system("clear");
         printf("开始购买\n");
         buy(crt);
+        system("clear");
         printf("购买结束\n");
         save1();
         menu3();
@@ -209,6 +224,7 @@ void opt3(user *crt)
     }
     else if (a == 8)
     {
+        system("clear");
         save();
         printf("保存成功，请继续操作\n");
         menu3();
@@ -216,17 +232,20 @@ void opt3(user *crt)
     }
     else if (a == 9)
     {
+        system("clear");
         menu2();
         opt2();
     }
     else if (a == 4)
     {
+        system("clear");
         del();
         menu3();
         opt3(crt);
     }
     else
     {
+        system("clear");
         printf("请输入正确的序号\n");
         menu3();
         opt3(crt);
@@ -346,11 +365,13 @@ void changeps()
         scanf("%s", buf1);
         if (strcmp(buf, buf1))
         {
+            system("clear");
             printf("两次密码输入不相同，请重试\n");
             changeps();
         }
         else
         {
+            system("clear");
             printf("修改成功，请您牢记您的密码\n");
             strcpy(t->password, buf);
             save1();
@@ -358,6 +379,7 @@ void changeps()
     }
     else
     {
+        system("clear");
         printf("该用户不存在,请重试\n\n");
     }
 }
@@ -463,12 +485,14 @@ void enter()
     }
     if (t)
     {
+        system("clear");
         printf("登录成功，请您继续\n\n");
         menu3();
         opt3(t);
     }
     else
     {
+        system("clear");
         printf("密码输入错误或该用户不存在,请重试\n\n");
         menu2();
         opt2();
@@ -630,6 +654,7 @@ void buy(user *crt)
 void addm()
 {
     char buf[40];
+    system("clear");
     printf("请选择你要充值的用户名\n");
     scanf("%s", buf);
     user *t = list;
@@ -643,11 +668,13 @@ void addm()
         printf("请输入你要充值的金额");
         scanf("%f", &v);
         t->money += v;
+        system("clear");
         printf("充值成功\n");
         printf("这是该账户当前的余额:%.2f\n\n", t->money);
     }
     else
     {
+        system("clear");
         printf("该用户不存在，请重试\n\n");
     }
 }
@@ -655,6 +682,7 @@ void addm()
 void makevip()
 {
     int a;
+    system("clear");
     printf("这里是会员办理系统，您可以支付200元然后成为本超市的vip用户\n");
     printf("此后您在本店的购买的任何物品都可以享受八折优惠\n");
     printf("支付的200元将从您的余额中扣去，若余额不足请及时充值\n");
@@ -664,6 +692,7 @@ void makevip()
     {
         char buf1[40];
         char buf2[40];
+        system("clear");
         printf("请输入你的账号\n\n");
         scanf("%s", buf1);
         printf("请输入你的密码\n\n");
@@ -679,18 +708,20 @@ void makevip()
         }
         if (t)
         {
+            system("clear");
             printf("办理成功\n\n");
             t->vip = 1;
             t->money -= 200;
         }
         else
         {
+            system("clear");
             printf("密码输入错误或该用户不存在,请重试\n\n");
         }
     }
     else
     {
-        menu2();
-        opt2();
+        system("clear");
+        return;
     }
 }
