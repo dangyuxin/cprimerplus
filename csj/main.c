@@ -26,6 +26,7 @@ struct things // 商品信息
 
 node *init = NULL;
 user *list = NULL;
+int nodecount = 0;
 
 void main_do();        // 初始化
 void nodemake();       // 录入商品数据
@@ -41,11 +42,17 @@ void save1();          // 保存用户信息
 void changeps();       // 修改密码
 void addm();           // 余额充值
 void makevip();        // 升级会员
-void menu3();          // 商品界面
-void opt3(user *crt);  // 商品选项
+void menu3();          // 商品界面(老板)
+void opt3(user *crt);  // 商品选项(老板)
+void menu4();          // 商品界面(用户)
+void opt4(user *crt);  // 商品选项(用户)
 void buy(user *crt);   // 购买商品
 node *add(node *init); // 添加商品
+void changenode();     // 修改商品信息
 void del();            // 删除商品
+void find();           // 查询商品
+void count();          // 统计商品
+void sort();           // 排序商品
 void save();           // 保存商品信息
 void show(node *init); // 展示商品
 
@@ -81,14 +88,17 @@ void opt1() // 主界面选项
     scanf("%d", &a);
     if (a == 1)
     {
+        system("cls");
         printf("进入\n");
         menu2();
         opt2();
     }
     else if (a == 2)
     {
+        system("cls");
         printf("退出成功\n");
         printf("欢迎下次光临\n");
+        freeall();
         exit(0);
     }
     else
@@ -118,18 +128,23 @@ void opt2() // 账号选项
     scanf("%d", &a);
     if (a == 1)
     {
+        system("cls");
         enter();
     }
     else if (a == 2)
     {
+        system("cls");
         printf("开始创建\n");
         createuser();
         save1();
+        system("cls");
+        printf("创建成功");
         menu2();
         opt2();
     }
     else if (a == 3)
     {
+        system("cls");
         printf("修改密码\n\n");
         changeps();
         menu2();
@@ -137,6 +152,7 @@ void opt2() // 账号选项
     }
     else if (a == 4)
     {
+        system("cls");
         printf("开始充值\n");
         addm();
         save1();
@@ -152,11 +168,13 @@ void opt2() // 账号选项
     }
     else if (a == 6)
     {
+        system("cls");
         menu1();
         opt1();
     }
     else
     {
+        system("cls");
         printf("请输入正确的序号\n");
         menu2();
         opt2();
@@ -166,7 +184,7 @@ void opt2() // 账号选项
 void menu3()
 {
     printf("******************************************************\n\n\n");
-    printf("    1.购买商品\n\n");
+    printf("    1.统计商品\n\n");
     printf("    2.添加商品\n\n");
     printf("    3.修改商品信息\n\n");
     printf("    4.删除商品\n\n");
@@ -186,29 +204,77 @@ void opt3(user *crt)
     scanf("%d", &a);
     if (a == 7)
     {
+        system("cls");
         printf("\n\n");
         show(init);
         menu3();
         opt3(crt);
     }
+    else if (a == 3)
+    {
+        system("cls");
+        changenode();
+        system("cls");
+        printf("修改完成，请继续\n");
+        menu3();
+        opt3(crt);
+    }
+    else if (a == 6)
+    {
+        system("cls");
+        printf("******************************************************\n\n\n");
+        printf("  请选择你要排序的方式:\n\n");
+        printf("   1.价格排序\n");
+        printf("   2.名称排序\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        printf("******************************************************\n\n\n");
+        sort();
+        system("cls");
+        printf("排序完毕\n");
+        menu3();
+        opt3(crt);
+    }
     else if (a == 2)
     {
+        system("cls");
         init = add(init);
+        system("cls");
         printf("\n添加成功\n");
+        menu3();
+        opt3(crt);
+    }
+    else if (a == 5)
+    {
+        int c;
+        system("cls");
+        printf("请选择你要查询的方式\n");
+        printf("   1.名称查询\n");
+        printf("   2.价格查询\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        printf("******************************************************\n\n\n");
+        find();
         menu3();
         opt3(crt);
     }
     else if (a == 1)
     {
-        printf("开始购买\n");
-        buy(crt);
-        printf("购买结束\n");
-        save1();
+        int c;
+        system("cls");
+        printf("请选择你要统计的方式\n");
+        printf("   1.按价格统计\n");
+        printf("   2.按公司统计\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        printf("******************************************************\n\n\n");
+        count();
         menu3();
         opt3(crt);
     }
     else if (a == 8)
     {
+        system("cls");
         save();
         printf("保存成功，请继续操作\n");
         menu3();
@@ -216,17 +282,20 @@ void opt3(user *crt)
     }
     else if (a == 9)
     {
+        system("cls");
         menu2();
         opt2();
     }
     else if (a == 4)
     {
+        system("cls");
         del();
         menu3();
         opt3(crt);
     }
     else
     {
+        system("cls");
         printf("请输入正确的序号\n");
         menu3();
         opt3(crt);
@@ -346,11 +415,13 @@ void changeps()
         scanf("%s", buf1);
         if (strcmp(buf, buf1))
         {
+            system("cls");
             printf("两次密码输入不相同，请重试\n");
             changeps();
         }
         else
         {
+            system("cls");
             printf("修改成功，请您牢记您的密码\n");
             strcpy(t->password, buf);
             save1();
@@ -358,6 +429,7 @@ void changeps()
     }
     else
     {
+        system("cls");
         printf("该用户不存在,请重试\n\n");
     }
 }
@@ -463,12 +535,22 @@ void enter()
     }
     if (t)
     {
+        system("cls");
         printf("登录成功，请您继续\n\n");
-        menu3();
-        opt3(t);
+        if (!strcmp("laoban", t->name))
+        {
+            menu3();
+            opt3(t);
+        }
+        else
+        {
+            menu4();
+            opt4(t);
+        }
     }
     else
     {
+        system("cls");
         printf("密码输入错误或该用户不存在,请重试\n\n");
         menu2();
         opt2();
@@ -542,6 +624,7 @@ void nodemake()
             t->next = init->next;
             init->next = t;
         }
+        nodecount++;
     }
     fclose(fp);
 }
@@ -630,6 +713,7 @@ void buy(user *crt)
 void addm()
 {
     char buf[40];
+    system("cls");
     printf("请选择你要充值的用户名\n");
     scanf("%s", buf);
     user *t = list;
@@ -640,14 +724,16 @@ void addm()
     if (t)
     {
         float v;
-        printf("请输入你要充值的金额");
+        printf("请输入你要充值的金额\n");
         scanf("%f", &v);
         t->money += v;
+        system("cls");
         printf("充值成功\n");
         printf("这是该账户当前的余额:%.2f\n\n", t->money);
     }
     else
     {
+        system("cls");
         printf("该用户不存在，请重试\n\n");
     }
 }
@@ -655,6 +741,7 @@ void addm()
 void makevip()
 {
     int a;
+    system("cls");
     printf("这里是会员办理系统，您可以支付200元然后成为本超市的vip用户\n");
     printf("此后您在本店的购买的任何物品都可以享受八折优惠\n");
     printf("支付的200元将从您的余额中扣去，若余额不足请及时充值\n");
@@ -664,6 +751,7 @@ void makevip()
     {
         char buf1[40];
         char buf2[40];
+        system("cls");
         printf("请输入你的账号\n\n");
         scanf("%s", buf1);
         printf("请输入你的密码\n\n");
@@ -679,18 +767,390 @@ void makevip()
         }
         if (t)
         {
+            if (t->vip == 1)
+            {
+                system("cls");
+                printf("您已是本店会员，无需办理\n\n");
+                return;
+            }
+            system("cls");
             printf("办理成功\n\n");
             t->vip = 1;
             t->money -= 200;
         }
         else
         {
+            system("cls");
             printf("密码输入错误或该用户不存在,请重试\n\n");
         }
     }
     else
     {
+        system("cls");
+        return;
+    }
+}
+
+void menu4()
+{
+    printf("******************************************************\n\n\n");
+    printf("    1.购买商品\n\n");
+    printf("    2.查找商品\n\n");
+    printf("    3.排序商品\n\n");
+    printf("    4.统计商品\n\n");
+    printf("    5.展示当前超市所有商品信息\n\n");
+    printf("    6.退出当前账号\n\n");
+    putchar('\n');
+    printf("       输入序号选择，回车确定        \n");
+    printf("******************************************************\n\n\n");
+}
+
+void opt4(user *crt)
+{
+    int a;
+    scanf("%d", &a);
+    if (a == 5)
+    {
+        system("cls");
+        printf("\n\n");
+        show(init);
+        menu4();
+        opt4(crt);
+    }
+    else if (a == 2)
+    {
+        int c;
+        system("cls");
+        printf("请选择你要查询的方式\n");
+        printf("   1.名称查询\n");
+        printf("   2.价格查询\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        printf("******************************************************\n\n\n");
+        find();
+        menu4();
+        opt4(crt);
+    }
+    else if (a == 4)
+    {
+        int c;
+        system("cls");
+        printf("请选择你要统计的方式\n");
+        printf("   1.按价格统计\n");
+        printf("   2.按公司统计\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        printf("******************************************************\n\n\n");
+        count();
+        menu4();
+        opt4(crt);
+    }
+    else if (a == 1)
+    {
+        system("cls");
+        printf("开始购买\n");
+        buy(crt);
+        system("cls");
+        printf("购买结束\n");
+        save1();
+        menu4();
+        opt4(crt);
+    }
+    else if (a == 3)
+    {
+        system("cls");
+        printf("******************************************************\n\n\n");
+        printf("  请选择你要排序的方式:\n\n");
+        printf("   1.价格排序\n");
+        printf("   2.名称排序\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        printf("******************************************************\n\n\n");
+        sort();
+        system("cls");
+        printf("排序完毕\n");
+        menu4();
+        opt4(crt);
+    }
+    else if (a == 6)
+    {
+        system("cls");
         menu2();
         opt2();
+    }
+    else
+    {
+        system("cls");
+        printf("请输入正确的序号\n");
+        menu4();
+        opt4(crt);
+    }
+}
+
+void sort()
+{
+    int a;
+    int num, i;
+    scanf("%d", &a);
+    if (a == 1)
+    {
+        system("cls");
+        printf("1.升序排序\n");
+        printf("2.降序排序\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        node *t = (node *)malloc(sizeof(node));
+        t->next = init;
+        node *tail, *p, *q;
+        scanf("%d", &a);
+        if (a == 1)
+        {
+            for (i = 0; i < nodecount; i++)
+            {
+                p = t->next;
+                q = p->next;
+                tail = t;
+                num = nodecount - i - 1;
+                while (num--)
+                {
+                    if (p->price > q->price)
+                    {
+                        p->next = q->next;
+                        q->next = p;
+                        tail->next = q;
+                    }
+                    tail = tail->next;
+                    p = tail->next;
+                    q = p->next;
+                }
+            }
+        }
+        else
+        {
+            for (i = 0; i < nodecount; i++)
+            {
+                p = t->next;
+                q = p->next;
+                tail = t;
+                num = nodecount - i - 1;
+                while (num--)
+                {
+                    if (p->price < q->price)
+                    {
+                        p->next = q->next;
+                        q->next = p;
+                        tail->next = q;
+                    }
+                    tail = tail->next;
+                    p = tail->next;
+                    q = p->next;
+                }
+            }
+        }
+        init = t->next;
+        free(t);
+    }
+    else
+    {
+        system("cls");
+        printf("1.升序排序\n");
+        printf("2.降序排序\n");
+        putchar('\n');
+        printf("       输入序号选择，回车确定        \n");
+        node *t = (node *)malloc(sizeof(node));
+        t->next = init;
+        node *tail, *p, *q;
+        scanf("%d", &a);
+        if (a == 1)
+        {
+            for (i = 0; i < nodecount; i++)
+            {
+                p = t->next;
+                q = p->next;
+                tail = t;
+                num = nodecount - i - 1;
+                while (num--)
+                {
+                    if (strcmp(p->name, q->name) > 0)
+                    {
+                        p->next = q->next;
+                        q->next = p;
+                        tail->next = q;
+                    }
+                    tail = tail->next;
+                    p = tail->next;
+                    q = p->next;
+                }
+            }
+        }
+        else
+        {
+            for (i = 0; i < nodecount; i++)
+            {
+                p = t->next;
+                q = p->next;
+                tail = t;
+                num = nodecount - i - 1;
+                while (num--)
+                {
+                    if (strcmp(p->name, q->name) < 0)
+                    {
+                        p->next = q->next;
+                        q->next = p;
+                        tail->next = q;
+                    }
+                    tail = tail->next;
+                    p = tail->next;
+                    q = p->next;
+                }
+            }
+        }
+        init = t->next;
+        free(t);
+    }
+}
+
+void find()
+{
+    int a;
+    printf("请选择你要查询的方式\n");
+    scanf("%d", &a);
+    system("cls");
+    if (a == 1)
+    {
+        char buf[40];
+        printf("请输入商品名称\n");
+        scanf("%s", buf);
+        node *t = init;
+        while (t && strcmp(t->name, buf))
+        {
+            t = t->next;
+        }
+        system("cls");
+        if (t)
+        {
+            printf("商品名称\t\t价格\t\t    生产日期\t\t    保证日期\t\t    公司\n\n\n");
+            printf("%-24s", t->name);
+            printf("%-20.2f", t->price);
+            printf("%-24s", t->birth);
+            printf("%-24s", t->death);
+            printf("%s\n\n\n", t->compony);
+        }
+        else
+        {
+            printf("没有这样的商品\n");
+        }
+    }
+    else
+    {
+        float c;
+        printf("请输入商品价格\n");
+        scanf("%f", &c);
+        node *t = init;
+        while (t && t->price != c)
+        {
+            t = t->next;
+        }
+        system("cls");
+        if (t)
+        {
+            printf("商品名称\t\t价格\t\t    生产日期\t\t    保证日期\t\t    公司\n\n\n");
+            printf("%-24s", t->name);
+            printf("%-20.2f", t->price);
+            printf("%-24s", t->birth);
+            printf("%-24s", t->death);
+            printf("%s\n\n\n", t->compony);
+        }
+        else
+        {
+            printf("没有这样的商品\n");
+        }
+    }
+}
+
+void count()
+{
+    int a;
+    printf("请选择你要统计的方式\n");
+    scanf("%d", &a);
+    system("cls");
+    if (a == 2)
+    {
+        int count = 0;
+        char buf[40];
+        printf("请输入公司名\n");
+        scanf("%s", buf);
+        node *t = init;
+        system("cls");
+        printf("商品名称\t\t价格\t\t    生产日期\t\t    保证日期\t\t    公司\n\n\n");
+        while (t)
+        {
+            if (!strcmp(buf, t->compony))
+            {
+
+                printf("%-24s", t->name);
+                printf("%-20.2f", t->price);
+                printf("%-24s", t->birth);
+                printf("%-24s", t->death);
+                printf("%s\n\n\n", t->compony);
+                count++;
+            }
+            t = t->next;
+        }
+        printf("这样的商品共有%d个\n", count);
+    }
+    else
+    {
+        int count = 0;
+        float c;
+        printf("请输入商品价格\n");
+        scanf("%f", &c);
+        node *t = init;
+        system("cls");
+        printf("商品名称\t\t价格\t\t    生产日期\t\t    保证日期\t\t    公司\n\n\n");
+        while (t)
+        {
+            if (t->price == c)
+            {
+
+                printf("%-24s", t->name);
+                printf("%-20.2f", t->price);
+                printf("%-24s", t->birth);
+                printf("%-24s", t->death);
+                printf("%s\n\n\n", t->compony);
+                count++;
+            }
+            t = t->next;
+        }
+        printf("这样的商品共有%d个\n", count);
+    }
+}
+void changenode()
+{
+    char buf[40];
+    printf("请输入你要修改的商品名称\n");
+    scanf("%s", buf);
+    node *t = init;
+    while (t && strcmp(t->name, buf))
+    {
+        t = t->next;
+    }
+    if (t)
+    {
+        printf("请开始修改\n");
+        printf("请输入商品名称\n");
+        scanf("%s", t->name);
+        printf("请输入商品价格\n");
+        scanf("%f", &t->price);
+        printf("请输入商品生产日期\n");
+        scanf("%s", t->birth);
+        printf("请输入商品过期日期\n");
+        scanf("%s", t->death);
+        printf("请输入商品生产公司\n");
+        scanf("%s", t->compony);
+    }
+    else
+    {
+        printf("不存在这样的商品\n");
     }
 }
