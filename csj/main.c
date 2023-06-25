@@ -325,6 +325,7 @@ node *add(node *init)
         t->next = init;
         return t;
     }
+    nodecount++;
 }
 
 void show(node *init)
